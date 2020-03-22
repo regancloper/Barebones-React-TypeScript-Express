@@ -1,4 +1,7 @@
 import * as React from 'react';
+import List from './List';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Detail from './Detail';
 
 class App extends React.Component<IAppProps, IAppState> {
 	constructor(props: IAppProps) {
@@ -20,14 +23,19 @@ class App extends React.Component<IAppProps, IAppState> {
 
 	render() {
 		return (
-			<main className="container my-5">
-				<h1 className="text-primary text-center">Hello {this.state.name}!</h1>
+			<main className="container">
+				<Router>
+					<Switch>
+						<Route exact path="/" component={List} />
+						<Route path="/:name" component={Detail} />
+					</Switch>
+				</Router>
 			</main>
 		);
 	}
 }
 
-export interface IAppProps {}
+export interface IAppProps { }
 
 export interface IAppState {
 	name: string;
