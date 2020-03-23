@@ -94,7 +94,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar express = __webpack_require__(/*! express */ \"express\");\nvar router = express.Router();\nrouter.get('/api/hello', function (req, res, next) {\n    res.json('World');\n});\nexports.default = router;\n\n\n//# sourceURL=webpack:///./src/server/routes.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar express = __webpack_require__(/*! express */ \"express\");\nvar path = __webpack_require__(/*! path */ \"path\");\nvar fs = __webpack_require__(/*! fs */ \"fs\");\nvar app = express();\nvar router = express.Router();\nvar dataPath = path.join(__dirname, '../albums.json');\napp.use(express.urlencoded({ extended: false }));\napp.use(express.json());\nrouter.get('/api/albums', function (req, res) {\n    fs.readFile(dataPath, function (err, data) {\n        if (err) {\n            console.log(err);\n            res.status(500).send(\"Something went wrong\");\n        }\n        else {\n            var albums = JSON.parse(data);\n            res.status(200).send(albums);\n        }\n    });\n});\nrouter.get('/api/albums/:id', function (req, res) {\n    var id = parseInt(req.params.id);\n    fs.readFile(dataPath, function (err, data) {\n        if (err) {\n            console.log(err);\n            res.status(500).send(\"Something went wrong\");\n        }\n        else {\n            var albums = JSON.parse(data);\n            var album = albums[id - 1];\n            res.status(200).send(album);\n        }\n    });\n});\nexports.default = router;\n\n\n//# sourceURL=webpack:///./src/server/routes.ts?");
 
 /***/ }),
 
@@ -118,6 +118,17 @@ eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar pa
 /***/ (function(module, exports) {
 
 eval("module.exports = require(\"express\");\n\n//# sourceURL=webpack:///external_%22express%22?");
+
+/***/ }),
+
+/***/ "fs":
+/*!*********************!*\
+  !*** external "fs" ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"fs\");\n\n//# sourceURL=webpack:///external_%22fs%22?");
 
 /***/ }),
 

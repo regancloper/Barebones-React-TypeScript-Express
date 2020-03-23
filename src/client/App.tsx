@@ -1,44 +1,28 @@
 import * as React from 'react';
-import List from './List';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Detail from './Detail';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import './scss/app';
 
-class App extends React.Component<IAppProps, IAppState> {
-	constructor(props: IAppProps) {
-		super(props);
-		this.state = {
-			name: null
-		};
-	}
+import Albums from './components/Albums';
+import Details from './components/Details';
 
-	async componentDidMount() {
-		try {
-			let r = await fetch('/api/hello');
-			let name = await r.json();
-			this.setState({ name });
-		} catch (error) {
-			console.log(error);
-		}
-	}
+const App: React.SFC<IAppProps> = props => {
 
-	render() {
-		return (
+
+	return (
+
+		<BrowserRouter>
 			<main className="container">
-				<Router>
-					<Switch>
-						<Route exact path="/" component={List} />
-						<Route path="/:name" component={Detail} />
-					</Switch>
-				</Router>
+				<Switch>
+					<Route exact path="/" component={Albums} />
+					<Route exact path="/:id/details" component={Details} />
+				</Switch>
 			</main>
-		);
-	}
-}
+		</BrowserRouter>
 
-export interface IAppProps { }
-
-export interface IAppState {
-	name: string;
+	);
 }
 
 export default App;
+
+interface IAppProps { }
+
